@@ -14,12 +14,10 @@ import os
 
 cred = credentials.Certificate("C:/Users/ccono/OneDrive/Craig Conover/BYUI/CSE310 - Applied Programming/Sprint 1/quotes-capture-firebase-adminsdk-niz56-0f0aee5d1a.json")
 
-# firebase_admin.initialize_app(cred)
 firebase_admin.initialize_app(cred, {
         'projectId': 'quotes-capture',
     })
 
-# db = firestore.client('quotes-capture')
 db = firestore.client()
 
 
@@ -30,10 +28,6 @@ def add_new_s_quote(db):
     '''
 
     title = input("Quote Title: ")
-    quote = input("Quote: ")
-    type = "Spiritual"
-    author = input("Author: ")
-    status = "New"
 
     # Check for an already existing quote with the same title.
     # The document ID must be unique in Firestore.
@@ -42,6 +36,12 @@ def add_new_s_quote(db):
         print("Quote already exists.")
         return
 
+    # Continue adding the other values if the title is unique
+    quote = input("Quote: ")
+    type = "Spiritual"
+    author = input("Author: ")
+    status = "New"
+    
     # Build a dictionary to hold the contents of the firestore document.
     data = {"title" : title, 
             "quote" : quote,
@@ -62,10 +62,6 @@ def add_new_m_quote(db):
     '''
 
     title = input("Quote Title: ")
-    quote = input("Quote: ")
-    type = "Motivation"
-    author = input("Author: ")
-    status = "New"
 
     # Check for an already existing quote with the same title.
     # The document ID must be unique in Firestore.
@@ -73,6 +69,12 @@ def add_new_m_quote(db):
     if result.exists:
         print("Quote already exists.")
         return
+
+    # Continue adding the other values if the title is unique
+    quote = input("Quote: ")
+    type = "Motivation"
+    author = input("Author: ")
+    status = "New"
 
     # Build a dictionary to hold the contents of the firestore document.
     data = {"title" : title, 
@@ -93,7 +95,6 @@ def change_status(db):
     '''
 
     title = input("Quote Title: ")
-    # add_status = input("Status (New, Used): ")
 
     # Check for an already existing quote with the same title.
     # The document ID must be unique in Firestore.
@@ -180,7 +181,6 @@ def log_transaction(db, message):
 
 
 def main():
-    # db = initialize_firestore()
     choice = None
     while choice != "0":
         print()
